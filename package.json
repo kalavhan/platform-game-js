@@ -1,0 +1,23 @@
+{
+  "name": "platform-game",
+  "version": "1.0.0",
+  "description": "Platform game with Phaser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalavhan/platform-game-js.git"
+  },
+  "keywords": [
+    "Videogame",
+    "phaser"
+  ],
+  "author": "Irwing Josué Brigido Espinoza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kalavhan/platform-game-js/issues"
+  },
+  "homepage": "https://github.com/kalavhan/platform-game-js#readme"
+}

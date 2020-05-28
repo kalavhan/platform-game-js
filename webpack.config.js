@@ -2,10 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: {
-    app: './src/index.js',
-    'production-dependencies': ['phaser']
-  },
+  entry: './src/index.js',
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
@@ -42,9 +39,16 @@ module.exports = {
       'typeof CANVAS_RENDERER': JSON.stringify(true),
       'typeof WEBGL_RENDERER': JSON.stringify(true)
     }),
-    new webpack.optimization.splitChunks({
-      name: 'production-dependencies',
-      filename: 'production-dependencies.js'
-    }),
   ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/](phaser)[\\/]/,
+          name: 'production-dependencies',
+          chunks: 'all',
+        }
+      }
+    }
+  },
 };

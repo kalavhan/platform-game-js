@@ -7,29 +7,19 @@ import jungleC from '../assets/forest/bg_jungle_layers/bg5_c.png';
 import jungleB from '../assets/forest/bg_jungle_layers/bg5_b.png';
 import jungleA from '../assets/forest/bg_jungle_layers/bg5_a.png';
 import water from '../assets/forest/water.png';
-import platformTile from '../assets/forest/jungle_pack_33.png';
+import platformTile from '../assets/forest/jungle_pack_05.png';
 import dude from '../assets/player-design/player.png';
-
-const gameOptions = {
-  platformStartSpeed: 350,
-  spawnRange: [100, 350],
-  platformSizeRange: [50, 250],
-  playerGravity: 900,
-  jumpForce: 400,
-  playerStartPosition: 200,
-  jumps: 2
-}
 
 export default class GameScene extends Phaser.Scene {
   
   constructor () {
-    super('GameScene');
+    super('Game');
   }
 
-  addImage(x, y, asset) {
+  addSprite(x, y, asset) {
     console.log(x);
-    var imageAdded = this.add.image(x, y, `${asset}`);
-    return imageAdded;
+    var spriteAdded = this.physics.add.sprite(x, y, `${asset}`);
+    return spriteAdded;
   }
 
   setMountains() {
@@ -46,8 +36,11 @@ export default class GameScene extends Phaser.Scene {
     let i = 0;
     let pos = 64;
     let waterArray = [];
+    this.waterGroup = this.add.group();
     do{
-      waterArray.push(this.addImage(pos, 556, 'water'));
+      let water = this.addSprite(pos, 556, 'water')
+      waterArray.push(water);
+      this.waterGroup.add(water);
       i += 1;
       pos += 128
     } while(i != 8)
@@ -58,6 +51,19 @@ export default class GameScene extends Phaser.Scene {
       ease: 'Power5',
       repeat: -1
     });
+  }
+
+  setPlatforms() {
+    this.platformGroup = this.add.group();
+    let pos = 0;
+    let i = 0;
+    do{
+      let platform = this.addSprite(pos, 460, 'platform')
+      platform.setImmovable(true);
+      this.platformGroup.add(platform);
+      i += 1;
+      pos += 128
+    } while(i != 3)
   }
  
   preload () {
@@ -79,14 +85,9 @@ export default class GameScene extends Phaser.Scene {
   create () {
     this.setMountains();
     this.setWater();
-    this.platformGroup = this.add.group();
-    let platform = this.physics.add.sprite(0, 450, 'platform').setDisplaySize(300, 40).setOrigin(0,0);
-    platform.setImmovable(true);
-    //platform.setVelocityX(-100);
-    this.platformGroup.add(platform);
+    this.setPlatforms();
     this.player = this.physics.add.sprite(20, 300, 'dude').setDisplaySize(50, 70).setOrigin(0, 0);
     this.player.setGravityY(600);
-    
     this.anims.create({
         key: 'idle',
         frames: [ { key: 'dude', frame: 0 } ],
@@ -113,7 +114,11 @@ export default class GameScene extends Phaser.Scene {
             this.player.anims.play("turn");
         }
     }, null, this);
-  }
+
+    this.physics.add.collider(this.player, this.waterGroup, function() {
+      this.scene.start('Title');
+    }, null, this);
+  } 
 
   update() {
     const cursorKey = this.input.keyboard.createCursorKeys();

@@ -1,5 +1,6 @@
 import 'phaser';
-
+import 'regenerator-runtime';
+import Button from '../objects/Button';
 export default class GameOverScene extends Phaser.Scene {
   constructor () {
     super('Over');
@@ -18,8 +19,23 @@ export default class GameOverScene extends Phaser.Scene {
     this.finalScoreTitle = this.add.text(0,0, `Time survived:`, { fontSize: '34px', fill: '#fff'});
     this.finalScore = this.add.text(0, 0, `${score}`, {fontSize: '30px', fill: '#fff'});
     this.zone = this.add.zone(width/2, height/2, width, height);
-    if (score.split(':')[1] > 0) {
-      this.scoreBoard.newScore();
+    this.homeButton = new Button(this, 150, 500, 'blueButton1', 'blueButton2', 'Home', 'Title');
+    this.restartButton = new Button(this, 650, 500, 'blueButton1', 'blueButton2', 'Restart', 'Game');
+    console.log(localStorage.getItem('scoreSaved'));
+    if (score.split(':')[1] > 0 && localStorage.getItem('scoreSaved') === 'false') {
+      const response = this.scoreBoard.newScore();
+      response.then(data => {
+        console.log(data);
+        this.getScoreBoardData();
+      })
+    } else {
+      this.notEnough = this.add.text(0,0, 'Survive at least a second to add a record', {fontSize: '28px', fill: '#fff'});
+      Phaser.Display.Align.In.Center(
+        this.notEnough,
+        this.zone
+      );
+      this.notEnough.setY(175);
+      this.getScoreBoardData();
     }
     Phaser.Display.Align.In.Center(
       this.gameOverText,
@@ -34,8 +50,53 @@ export default class GameOverScene extends Phaser.Scene {
       this.finalScore,
       this.zone
     )
-    this.gameOverText.setY(100);
-    this.finalScoreTitle.setY(180);
-    this.finalScore.setY(205);
+    this.gameOverText.setY(30);
+    this.finalScoreTitle.setY(110);
+    this.finalScore.setY(145);
+  }
+
+  getScoreBoardData(){
+    let sb = this.scoreBoard.getScores();
+    sb.then(data => {
+      const tempTable = this.createList(data.result);
+      this.form = this.add.dom(400, 400, tempTable);
+    });
+  }
+
+  createList(data) {
+    console.log(data);
+
+    let listTable = document.createElement('table');
+    listTable.style.color = '#000 ';
+    listTable.style.maxHeight = '300px';
+    listTable.style.overflowX = 'scroll';
+    listTable.style.borderCollapse = 'collapse';
+    listTable.style.background = '#fff';
+    let firstTr = document.createElement('tr')
+    let nameTitle = document.createElement('th');
+    nameTitle.style.paddingRight = '40px';
+    let scoreTitle = document.createElement('th');
+    nameTitle.innerHTML = 'Name';
+    scoreTitle.innerHTML = 'Score';
+    firstTr.appendChild(nameTitle);
+    firstTr.appendChild(scoreTitle);
+    listTable.appendChild(firstTr);
+    for(let i = 0; i < data.length; i += 1){
+      let tempTr = document.createElement('tr');
+      if (i%2 === 0) {
+        tempTr.style.background = '#dddddd';
+      }
+      let firstTd = document.createElement('td');
+      firstTd.style.paddingRight = '40px';
+      firstTd.style.textAlign = 'center'
+      let secondTd = document.createElement('td');
+      firstTd.innerHTML = data[i].user;
+      secondTd.innerHTML = data[i].score;
+      tempTr.appendChild(firstTd);
+      tempTr.appendChild(secondTd);
+      listTable.appendChild(tempTr);
+    }
+    console.log(listTable);
+    return listTable;
   }
 };

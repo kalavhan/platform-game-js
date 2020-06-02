@@ -1,5 +1,4 @@
 import 'phaser';
-import logo from '../assets/logo.png';
 import buttonTwo from '../assets/ui/blue_button02.png';
 import buttonThree from '../assets/ui/blue_button03.png';
 import checkedBox from '../assets/ui/blue_boxCheckmark.png';
@@ -9,6 +8,17 @@ import playGameMusic from '../assets/audio/playgame-music.mp3';
 import hitSound from '../assets/audio/hit-sound.mp3';
 import powerUpSound from '../assets/audio/powerUp-sound.mp3';
 import powerDownSound from '../assets/audio/powerDown-sound.mp3';
+import rock from '../assets/rock.png';
+import jungleG from '../assets/forest/bg_jungle_layers/bg5_g.png';
+import jungleF from '../assets/forest/bg_jungle_layers/bg5_f.png';
+import jungleE from '../assets/forest/bg_jungle_layers/bg5_e.png';
+import jungleD from '../assets/forest/bg_jungle_layers/bg5_d.png';
+import jungleC from '../assets/forest/bg_jungle_layers/bg5_c.png';
+import jungleB from '../assets/forest/bg_jungle_layers/bg5_b.png';
+import jungleA from '../assets/forest/bg_jungle_layers/bg5_a.png';
+import water from '../assets/forest/water.png';
+import platformTile from '../assets/forest/jungle_pack_05.png';
+import dude from '../assets/player-design/player.png';
 
 export default class PreloaderScene extends Phaser.Scene {
   constructor () {
@@ -16,9 +26,6 @@ export default class PreloaderScene extends Phaser.Scene {
   }
  
   preload () {
-      // add logo image
-    this.add.image(400, 200, 'logo');
-  
     // display progress bar
     var progressBar = this.add.graphics();
     var progressBox = this.add.graphics();
@@ -86,14 +93,27 @@ export default class PreloaderScene extends Phaser.Scene {
     
     this.load.image('blueButton1', buttonTwo);
     this.load.image('blueButton2', buttonThree);
-    this.load.image('phaserLogo', logo);
     this.load.image('box', box);
     this.load.image('checkedBox', checkedBox);
+    this.load.image('rock', rock)
     this.load.audio('menuMusic', [menuMusic]);
     this.load.audio('playGameMusic', [playGameMusic]);
     this.load.audio('hitSound', [hitSound]);
     this.load.audio('powerUpSound', [powerUpSound]);
     this.load.audio('powerDownSound', [powerDownSound]);
+    this.load.image('jungleG', jungleG);
+    this.load.image('jungleF', jungleF);
+    this.load.image('jungleE', jungleE);
+    this.load.image('jungleD', jungleD);
+    this.load.image('jungleC', jungleC);
+    this.load.image('jungleB', jungleB);
+    this.load.image('jungleA', jungleA);
+    this.load.image('water', water);
+    this.load.image('platform', platformTile);
+    this.load.spritesheet("dude", dude, {
+      frameWidth: 46,
+      frameHeight: 50
+    });
   }
  
   create () {

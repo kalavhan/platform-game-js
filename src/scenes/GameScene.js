@@ -1,15 +1,4 @@
 import 'phaser';
-import jungleG from '../assets/forest/bg_jungle_layers/bg5_g.png';
-import jungleF from '../assets/forest/bg_jungle_layers/bg5_f.png';
-import jungleE from '../assets/forest/bg_jungle_layers/bg5_e.png';
-import jungleD from '../assets/forest/bg_jungle_layers/bg5_d.png';
-import jungleC from '../assets/forest/bg_jungle_layers/bg5_c.png';
-import jungleB from '../assets/forest/bg_jungle_layers/bg5_b.png';
-import jungleA from '../assets/forest/bg_jungle_layers/bg5_a.png';
-import water from '../assets/forest/water.png';
-import platformTile from '../assets/forest/jungle_pack_05.png';
-import dude from '../assets/player-design/player.png';
-import bullt from '../assets/cokecan.png';
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -28,35 +17,25 @@ export default class GameScene extends Phaser.Scene {
   }
  
   preload () {
-    this.load.image('jungleG', jungleG);
-    this.load.image('jungleF', jungleF);
-    this.load.image('jungleE', jungleE);
-    this.load.image('jungleD', jungleD);
-    this.load.image('jungleC', jungleC);
-    this.load.image('jungleB', jungleB);
-    this.load.image('jungleA', jungleA);
-    this.load.image('water', water);
-    this.load.image('platform', platformTile);
-    this.load.image('bullet', bullt);
-    this.load.spritesheet("dude", dude, {
-      frameWidth: 46,
-      frameHeight: 50
-    });
   }
  
   create () {
+    localStorage.setItem('scoreSaved', false);
     this.model = this.sys.game.globals.model;
     this.startMusic();
     this.setMountains();
     this.setWater();
     this.setPlatforms();
+    this.setFallingObjects();
     this.minutes = 0;
     this.seconds = 0;
     this.mls = 0;
     this.timePlayed = '';
-    this.timeText = this.add.text(100, 200, null,{fontSize: '32px', fill: '#000'});
+    this.timeText = this.add.text(15, 15, null,{fontSize: '32px', fill: '#000'});
     this.jumpCount = 0;
     this.player = this.physics.add.sprite(this.gameOptions.playerStartPosition, 600 * 0.6, 'dude').setDisplaySize(60, 90);
+    this.player.setSize(20, 41, true);
+    this.input.enableDebug(this.player, 0xff00ff);
     this.player.setGravityY(900);
     this.anims.create({
         key: 'idle',
@@ -83,10 +62,27 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.player, this.platformGroup, null, null, this);
 
     this.physics.add.collider(this.player, this.waterGroup, function() {
+      this.scene.pause();
+      this.player.setTint(0xff142c);
       this.model.bgMusicPlaying = false;
       this.model.score = this.timePlayed;
       this.bgMusic.stop();
-      this.scene.start('Over');
+      setTimeout(() => {
+        this.scene.resume();
+        this.scene.start('Over');
+      }, 1200);
+    }, null, this);
+
+    this.physics.add.collider(this.player, this.fallingGroup, function() {
+      this.scene.pause();
+      this.player.setTint(0xff142c);
+      this.model.bgMusicPlaying = false;
+      this.model.score = this.timePlayed;
+      this.bgMusic.stop();
+      setTimeout(() => {
+        this.scene.resume();
+        this.scene.start('Over');
+      }, 1200);
     }, null, this);
   } 
 
@@ -146,13 +142,35 @@ export default class GameScene extends Phaser.Scene {
       let nextPlatformHeight = Phaser.Math.Clamp(nextPlatformGap, minPlatformHeight, maxPlatformHeight);
       this.addPlatform(nextPlatformWidth, 800 + nextPlatformWidth / 2, nextPlatformHeight);
     }
+    this.fallingGroup.getChildren().forEach(function(falling){
+      if (falling.y > 600) {
+        this.fallingGroup.killAndHide(falling);
+        this.fallingGroup.remove(falling);
+      }
+    }, this);
+
     this.chronometer();
+  }
+
+  setFallingObjects() {
+    this.fallingGroup = this.add.group();
+    this.addFallingObject()
+  }
+
+  addFallingObject() {
+    console.log('imIn');
+    let x = Phaser.Math.Between(20, 780);
+    let falling = this.physics.add.sprite(x, -50, 'rock').setDisplaySize(30, 40);
+    falling.setImmovable(true);
+    falling.setVelocityY(Phaser.Math.Between(100, 200));
+    this.fallingGroup.add(falling);
   }
 
   chronometer() {
     if(this.mls > 59) {
       this.seconds += 1;
       this.mls = 0;
+      this.addFallingObject();
       if(this.seconds > 59){
         this.minutes += 1;
       }
@@ -187,7 +205,8 @@ export default class GameScene extends Phaser.Scene {
     let waterArray = [];
     this.waterGroup = this.add.group();
     do{
-      let water = this.addSprite(pos, 586, 'water', 3)
+      let water = this.addSprite(pos, 586, 'water', 3).setInteractive();
+      water.setSize(128, 30, true);
       waterArray.push(water);
       this.waterGroup.add(water);
       i += 1;

@@ -31,7 +31,11 @@ module.exports = {
             presets: ['@babel/env']
           }
         }
-      }
+      },
+      {
+        test: /\.html$/i,
+        loader: 'html-loader',
+      },
     ]
   },
   plugins: [

@@ -18,8 +18,6 @@ export default class GameOverScene extends Phaser.Scene {
     this.finalScoreTitle = this.add.text(0,0, `Time survived:`, { fontSize: '34px', fill: '#fff'});
     this.finalScore = this.add.text(0, 0, `${score}`, {fontSize: '30px', fill: '#fff'});
     this.zone = this.add.zone(width/2, height/2, width, height);
-    console.log(score);
-    console.log(score.split(':')[1] > 0);
     if (score.split(':')[1] > 0) {
       this.scoreBoard.newScore();
     }

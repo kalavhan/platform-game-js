@@ -45,6 +45,7 @@ export default class GameScene extends Phaser.Scene {
   }
  
   create () {
+    this.model = this.sys.game.globals.model;
     this.startMusic();
     this.setMountains();
     this.setWater();
@@ -52,6 +53,7 @@ export default class GameScene extends Phaser.Scene {
     this.minutes = 0;
     this.seconds = 0;
     this.mls = 0;
+    this.timePlayed = '';
     this.timeText = this.add.text(100, 200, null,{fontSize: '32px', fill: '#000'});
     this.jumpCount = 0;
     this.player = this.physics.add.sprite(this.gameOptions.playerStartPosition, 600 * 0.6, 'dude').setDisplaySize(60, 90);
@@ -82,8 +84,9 @@ export default class GameScene extends Phaser.Scene {
 
     this.physics.add.collider(this.player, this.waterGroup, function() {
       this.model.bgMusicPlaying = false;
+      this.model.score = this.timePlayed;
       this.bgMusic.stop();
-      this.scene.start('Title');
+      this.scene.start('Over');
     }, null, this);
   } 
 
@@ -159,6 +162,7 @@ export default class GameScene extends Phaser.Scene {
     let dm = this.minutes < 10 ? `0${this.minutes}` : this.minutes;
     let ds = this.seconds < 10 ? `0${this.seconds}` : this.seconds;
     this.timeText.setText(`${dm}:${ds}`)
+    this.timePlayed = `${dm}:${ds}`;
   }
 
   addSprite(x, y, asset, depth = 1) {
@@ -235,7 +239,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   startMusic() {
-    this.model = this.sys.game.globals.model;
     if (this.model.musicOn === true) {
       if(this.model.bgMusicPlaying === true){
         this.sys.game.globals.bgMusic.stop();

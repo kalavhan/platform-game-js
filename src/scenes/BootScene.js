@@ -1,5 +1,4 @@
 import 'phaser';
-import logo from '../assets/cokecan.png';
  
 export default class BootScene extends Phaser.Scene {
   constructor () {
@@ -7,7 +6,6 @@ export default class BootScene extends Phaser.Scene {
   }
  
   preload () {
-    this.load.image('logo', logo);
   }
  
   create () {

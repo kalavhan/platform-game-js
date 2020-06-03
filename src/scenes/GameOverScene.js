@@ -17,8 +17,8 @@ export default class GameOverScene extends Phaser.Scene {
     const width = this.cameras.main.width;
     const height = this.cameras.main.height;
     this.gameOverText = this.add.text(0, 0, 'Game Over', { fontSize: '52px', fill: '#f00' });
-    this.finalScoreTitle = this.add.text(0, 0, `Time survived:`, { fontSize: '34px', fill: '#fff'});
-    this.finalScore = this.add.text(0, 0, `${score}`, {fontSize: '30px', fill: '#fff'});
+    this.finalScoreTitle = this.add.text(0, 0, 'Time survived:', { fontSize: '34px', fill: '#fff' });
+    this.finalScore = this.add.text(0, 0, `${score}`, { fontSize: '30px', fill: '#fff' });
     this.zone = this.add.zone(width / 2, height / 2, width, height);
     this.homeButton = new Button(this, 150, 500, 'blueButton1', 'blueButton2', 'Home', 'Title');
     this.restartButton = new Button(this, 650, 500, 'blueButton1', 'blueButton2', 'Restart', 'Game');
@@ -55,7 +55,7 @@ export default class GameOverScene extends Phaser.Scene {
   }
 
   getScoreBoardData() {
-    let sb = this.scoreBoard.getScores();
+    const sb = this.scoreBoard.getScores();
     sb.then(data => {
       const tempTable = this.createList(data.result);
       this.form = this.add.dom(400, 400, tempTable);
@@ -69,7 +69,7 @@ export default class GameOverScene extends Phaser.Scene {
     listTable.style.overflowX = 'scroll';
     listTable.style.borderCollapse = 'collapse';
     listTable.style.background = '#fff';
-    const firstTr = document.createElement('tr')
+    const firstTr = document.createElement('tr');
     const nameTitle = document.createElement('th');
     nameTitle.style.paddingRight = '40px';
     const scoreTitle = document.createElement('th');

@@ -47,7 +47,7 @@ export default class GameScene extends Phaser.Scene {
       key: 'run',
       frames: this.anims.generateFrameNumbers('dude', { start: 24, end: 35 }),
       frameRate: 20,
-      repeat: -1
+      repeat: -1,
     });
 
     this.anims.create({
@@ -128,23 +128,27 @@ export default class GameScene extends Phaser.Scene {
         minDistance = platformDistance;
         rightmostPlatformHeight = platform.y;
       }
-      if(platform.x < - platform.displayWidth / 2){
+      if (platform.x <- platform.displayWidth / 2) {
         this.platformGroup.killAndHide(platform);
         this.platformGroup.remove(platform);
       }
     }, this);
     if (minDistance > this.nextPlatformDistance) {
-      const nextPlatformWidth = Phaser.Math.Between(this.gameOptions.platformSizeRange[0], this.gameOptions.platformSizeRange[1]);
+      const nextPlatformWidth = Phaser.Math.Between(
+        this.gameOptions.platformSizeRange[0], this.gameOptions.platformSizeRange[1]
+        );
       const platformRandomHeight = this.gameOptions.platformHeighScale * Phaser.Math.Between(
-        this.gameOptions.platformHeightRange[0], this.gameOptions.platformHeightRange[1]);
+        this.gameOptions.platformHeightRange[0], this.gameOptions.platformHeightRange[1]
+        );
       const nextPlatformGap = rightmostPlatformHeight + platformRandomHeight;
       const minPlatformHeight = 600 * this.gameOptions.platformVerticalLimit[0];
-      let maxPlatformHeight = 600 * this.gameOptions.platformVerticalLimit[1];
-      let nextPlatformHeight = Phaser.Math.Clamp(
-        nextPlatformGap, minPlatformHeight, maxPlatformHeight);
+      const maxPlatformHeight = 600 * this.gameOptions.platformVerticalLimit[1];
+      const nextPlatformHeight = Phaser.Math.Clamp(
+        nextPlatformGap, minPlatformHeight, maxPlatformHeight
+        );
       this.addPlatform(nextPlatformWidth, 800 + nextPlatformWidth / 2, nextPlatformHeight);
     }
-    this.fallingGroup.getChildren().forEach(function(falling){
+    this.fallingGroup.getChildren().forEach(function (falling) {
       if (falling.y > 600) {
         this.fallingGroup.killAndHide(falling);
         this.fallingGroup.remove(falling);
@@ -156,11 +160,11 @@ export default class GameScene extends Phaser.Scene {
 
   setFallingObjects() {
     this.fallingGroup = this.add.group();
-    this.addFallingObject()
+    this.addFallingObject();
   }
 
   addFallingObject() {
-    let x = Phaser.Math.Between(20, 780);
+    const x = Phaser.Math.Between(20, 780);
     let falling = this.physics.add.sprite(x, -50, 'rock').setDisplaySize(30, 40);
     falling.setImmovable(true);
     falling.setVelocityY(Phaser.Math.Between(100, 200));

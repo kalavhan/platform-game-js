@@ -6,6 +6,8 @@
 
 This is part of Javascript course, building a game using Phaser.
 
+![ss](https://user-images.githubusercontent.com/47485749/83661235-0e73f280-a583-11ea-8b8a-248c36040250.png)
+
 ## Built With
 - Javascript(ES6)
 - Webpack
@@ -56,7 +58,7 @@ This will open the app at 127.0.0.1:9000. If it doesn't open, visit ```http://lo
 - Use up arrow key to jump
 - Jump from one platform to the other, if you touch the water you lose
 - Avoid the falling rocks, if you touch a rock you lose
-- There is a chronometer in the left upper corner, your score is how much time you last
+- There is a chronometer in the top left corner, your score is how much time you last
 - Try to survive as much time as possible!
 
 ## Author

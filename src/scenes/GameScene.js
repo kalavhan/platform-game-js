@@ -69,7 +69,7 @@ export default class GameScene extends Phaser.Scene {
       this.bgMusic.stop();
       setTimeout(() => {
         this.scene.resume();
-        this.scene.start('Over');
+        this.scene.start('Title');
       }, 1200);
     }, null, this);
 
@@ -81,7 +81,7 @@ export default class GameScene extends Phaser.Scene {
       this.bgMusic.stop();
       setTimeout(() => {
         this.scene.resume();
-        this.scene.start('Over');
+        this.scene.start('Title');
       }, 1200);
     }, null, this);
   } 

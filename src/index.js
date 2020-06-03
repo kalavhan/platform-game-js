@@ -1,4 +1,6 @@
 import 'phaser';
+import css from './css/main.css';
+import arrows from './assets/arrows.png';
 import config from './modules/PhaserConfig';
 import GameScene from './scenes/GameScene';
 import BootScene from './scenes/BootScene';
@@ -11,6 +13,7 @@ import Model from './scenes/Model';
 import scoreBoard from './modules/ScoreBoard';
 import InputScene from './scenes/InputScene';
 
+document.getElementById('arrowsImg').src = arrows;
 class Game extends Phaser.Game {
   constructor (){
     super(config);

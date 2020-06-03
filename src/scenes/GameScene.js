@@ -253,7 +253,8 @@ export default class GameScene extends Phaser.Scene {
       platform = this.physics.add.sprite(posX, posY, 'platform');
       platform.setImmovable(true);
       platform.setVelocityX(Phaser.Math.Between(
-        this.gameOptions.platformSpeedRange[0], this.gameOptions.platformSpeedRange[1]) * -1
+        this.gameOptions.platformSpeedRange[0], this.gameOptions.platformSpeedRange[1],
+        ) * -1
       );
       this.platformGroup.add(platform);
     }

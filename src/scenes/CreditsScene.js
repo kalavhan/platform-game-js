@@ -1,52 +1,52 @@
 import 'phaser';
- 
+
 export default class CreditsScene extends Phaser.Scene {
-  constructor () {
+  constructor() {
     super('Credits');
   }
- 
-  preload () {
+
+  preload() {
   }
- 
-  create () {
-    var width = this.cameras.main.width;
-    var height = this.cameras.main.height;
+
+  create() {
+    const width = this.cameras.main.width;
+    const height = this.cameras.main.height;
     this.creditsText = this.add.text(0, 0, 'Credits', { fontSize: '32px', fill: '#fff' });
     this.madeByText = this.add.text(0, 0, 'Created By: Josue Brigido', { fontSize: '26px', fill: '#fff' });
-    this.SceneByText = this.add.text(0, 0, 'Background sprites By: Tio Aimar@opengameart.org', {fontSize: '26px', fill: '#fff'});
-    this.playerBy = this.add.text(0, 0, 'Player sprite By: Balmer@opengameart.org', {fontSize: '26px', fill: '#fff'});
-    this.musicBy = this.add.text(0, 0, 'Music and Sound effects By: Bogart@opengameart.org', {fontSize: '26px', fill: '#fff'});
-    this.zone = this.add.zone(width/2, height/2, width, height);
-    
+    this.SceneByText = this.add.text(0, 0, 'Background sprites By: Tio Aimar@opengameart.org', { fontSize: '26px', fill: '#fff' });
+    this.playerBy = this.add.text(0, 0, 'Player sprite By: Balmer@opengameart.org', { fontSize: '26px', fill: '#fff' });
+    this.musicBy = this.add.text(0, 0, 'Music and Sound effects By: Bogart@opengameart.org', { fontSize: '26px', fill: '#fff' });
+    this.zone = this.add.zone(width / 2, height / 2, width, height);
+   
     Phaser.Display.Align.In.Center(
       this.creditsText,
-      this.zone
+      this.zone,
     );
-    
+
     Phaser.Display.Align.In.Center(
       this.madeByText,
-      this.zone
+      this.zone,
     );
 
     Phaser.Display.Align.In.Center(
       this.SceneByText,
-      this.zone
+      this.zone,
     );
 
     Phaser.Display.Align.In.Center(
       this.playerBy,
-      this.zone
-    )
-    
+      this.zone,
+    );
+
     Phaser.Display.Align.In.Center(
       this.musicBy,
-      this.zone
-    )
+      this.zone,
+    );
 
     this.madeByText.setY(900);
     this.SceneByText.setY(1000);
     this.playerBy.setY(1100);
-    this.musicBy.setY(1200)
+    this.musicBy.setY(1200);
 
     this.creditsTween = this.tweens.add({
       targets: this.creditsText,
@@ -56,9 +56,9 @@ export default class CreditsScene extends Phaser.Scene {
       delay: 300,
       onComplete: function () {
         this.destroy;
-      }
+      },
     });
-    
+
     this.madeByTween = this.tweens.add({
       targets: [this.madeByText, this.SceneByText, this.playerBy, this.musicBy],
       y: '-=800',
@@ -68,7 +68,7 @@ export default class CreditsScene extends Phaser.Scene {
       onComplete: function () {
         this.madeByTween.destroy;
         this.scene.start('Title');
-      }.bind(this)
+      }.bind(this),
     });
   }
-};
+}

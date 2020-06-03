@@ -37,8 +37,8 @@ export default class PreloaderScene extends Phaser.Scene {
       text: 'Loading...',
       style: {
         font: '20px monospace',
-        fill: '#ffffff'
-      }
+        fill: '#ffffff',
+      },
     });
     loadingText.setOrigin(0.5, 0.5);
 
@@ -48,8 +48,8 @@ export default class PreloaderScene extends Phaser.Scene {
       text: '0%',
       style: {
         font: '18px monospace',
-        fill: '#ffffff'
-      }
+        fill: '#ffffff',
+      },
     });
     percentText.setOrigin(0.5, 0.5);
 
@@ -59,14 +59,14 @@ export default class PreloaderScene extends Phaser.Scene {
       text: '',
       style: {
         font: '18px monospace',
-        fill: '#ffffff'
-      }
+        fill: '#ffffff',
+      },
     });
     assetText.setOrigin(0.5, 0.5);
 
     // update progress bar
     this.load.on('progress', function (value) {
-      percentText.setText(parseInt(value * 100) + '%');
+      percentText.setText(`${parseInt(value * 100)}%`);
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
       progressBar.fillRect(250, 280, 300 * value, 30);
@@ -74,7 +74,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
     // update file progress text
     this.load.on('fileprogress', function (file) {
-      assetText.setText('Loading asset: ' + file.key);
+      assetText.setText(`Loading asset: ${file.key}`);
     });
 
     this.load.on('complete', function () {
@@ -92,7 +92,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('blueButton2', buttonThree);
     this.load.image('box', box);
     this.load.image('checkedBox', checkedBox);
-    this.load.image('rock', rock)
+    this.load.image('rock', rock);
     this.load.audio('menuMusic', [menuMusic]);
     this.load.image('jungleG', jungleG);
     this.load.image('jungleF', jungleF);
@@ -103,9 +103,9 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('jungleA', jungleA);
     this.load.image('water', water);
     this.load.image('platform', platformTile);
-    this.load.spritesheet("dude", dude, {
+    this.load.spritesheet('dude', dude, {
       frameWidth: 46,
-      frameHeight: 50
+      frameHeight: 50,
     });
     this.load.audio('playGameMusic', [playGameMusic]);
   }
@@ -117,9 +117,9 @@ export default class PreloaderScene extends Phaser.Scene {
     this.readyCount = 0;
   }
 
-  ready() {	
+  ready() {
     this.scene.start('Input');
-    this.readyCount++;
+    this.readyCount += 1;
     if (this.readyCount === 2) {
       this.scene.start('Input');
     }

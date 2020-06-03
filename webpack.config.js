@@ -29,8 +29,8 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/env']
-          }
-        }
+          },
+        },
       },
       {
         test: /\.html$/i,
@@ -40,12 +40,12 @@ module.exports = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
-    ]
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({
       'typeof CANVAS_RENDERER': JSON.stringify(true),
-      'typeof WEBGL_RENDERER': JSON.stringify(true)
+      'typeof WEBGL_RENDERER': JSON.stringify(true),
     }),
   ],
 };

@@ -241,29 +241,32 @@ export default class GameScene extends Phaser.Scene {
     this.addPlatform(800, 800 / 2, 600 * this.gameOptions.platformVerticalLimit[1]);
   }
 
-  addPlatform(platformWidth, posX, posY){
+  addPlatform(platformWidth, posX, posY) {
     let platform;
-    if(this.platformPool.getLength()) {
+    if (this.platformPool.getLength()) {
       platform = this.platformPool.getFirst();
       platform.x = posX;
       platform.active = true;
       platform.visible = true;
       this.platformPool.remove(platform);
-    }
-    else {
-      platform = this.physics.add.sprite(posX, posY, "platform");
+    } else {
+      platform = this.physics.add.sprite(posX, posY, 'platform');
       platform.setImmovable(true);
-      platform.setVelocityX(Phaser.Math.Between(this.gameOptions.platformSpeedRange[0], this.gameOptions.platformSpeedRange[1]) * -1);
+      platform.setVelocityX(Phaser.Math.Between(
+        this.gameOptions.platformSpeedRange[0], this.gameOptions.platformSpeedRange[1]) * -1
+      );
       this.platformGroup.add(platform);
     }
     platform.displayHeight = 30;
     platform.displayWidth = platformWidth;
-    this.nextPlatformDistance = Phaser.Math.Between(this.gameOptions.spawnRange[0], this.gameOptions.spawnRange[1]);
+    this.nextPlatformDistance = Phaser.Math.Between(
+      this.gameOptions.spawnRange[0], this.gameOptions.spawnRange[1]
+    );
   }
 
   startMusic() {
     if (this.model.musicOn === true) {
-      if(this.model.bgMusicPlaying === true){
+      if (this.model.bgMusicPlaying === true) {
         this.sys.game.globals.bgMusic.stop();
       }
       this.bgMusic = this.sound.add('playGameMusic', { volume: 0.5, loop: true });
@@ -271,4 +274,4 @@ export default class GameScene extends Phaser.Scene {
       this.sys.game.globals.bgMusic = this.bgMusic;
     }
   }
-};
+}

@@ -1,6 +1,5 @@
 import 'phaser';
 import Button from '../objects/Button';
-import menuMusic from '../assets/audio/menu-music.mp3';
  
 export default class TitleScene extends Phaser.Scene {
   constructor () {
@@ -8,7 +7,6 @@ export default class TitleScene extends Phaser.Scene {
   }
  
   preload () {
-    this.load.audio('menuMusic', [menuMusic]);
   }
  
   create () {

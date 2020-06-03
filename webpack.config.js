@@ -44,15 +44,4 @@ module.exports = {
       'typeof WEBGL_RENDERER': JSON.stringify(true)
     }),
   ],
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/](phaser)[\\/]/,
-          name: 'production-dependencies',
-          chunks: 'all',
-        }
-      }
-    }
-  },
 };

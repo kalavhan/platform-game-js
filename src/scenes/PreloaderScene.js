@@ -3,7 +3,6 @@ import buttonTwo from '../assets/ui/blue_button02.png';
 import buttonThree from '../assets/ui/blue_button03.png';
 import checkedBox from '../assets/ui/blue_boxCheckmark.png';
 import box from '../assets/ui/grey_box.png';
-import menuMusic from '../assets/audio/m-music.mp3';
 import playGameMusic from '../assets/audio/pgame-music.mp3';
 import rock from '../assets/rock.png';
 import jungleG from '../assets/forest/bg_jungle_layers/bg5_g.png';
@@ -93,7 +92,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('box', box);
     this.load.image('checkedBox', checkedBox);
     this.load.image('rock', rock);
-    this.load.audio('menuMusic', [menuMusic]);
+    this.load.audio('playGameMusic', [playGameMusic]);
     this.load.image('jungleG', jungleG);
     this.load.image('jungleF', jungleF);
     this.load.image('jungleE', jungleE);
@@ -107,7 +106,6 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 46,
       frameHeight: 50,
     });
-    this.load.audio('playGameMusic', [playGameMusic]);
   }
 
   create() {

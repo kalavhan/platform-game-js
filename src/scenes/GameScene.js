@@ -22,7 +22,6 @@ export default class GameScene extends Phaser.Scene {
   create() {
     localStorage.setItem('scoreSaved', false);
     this.model = this.sys.game.globals.model;
-    this.startMusic();
     this.setMountains();
     this.setWater();
     this.setPlatforms();
@@ -64,9 +63,6 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.player, this.waterGroup, function () {
       this.scene.pause();
       this.player.setTint(0xff142c);
-      this.model.bgMusicPlaying = false;
-      this.model.score = this.timePlayed;
-      this.bgMusic.stop();
       setTimeout(() => {
         this.scene.resume();
         this.scene.start('Over');
@@ -76,9 +72,6 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.player, this.fallingGroup, function () {
       this.scene.pause();
       this.player.setTint(0xff142c);
-      this.model.bgMusicPlaying = false;
-      this.model.score = this.timePlayed;
-      this.bgMusic.stop();
       setTimeout(() => {
         this.scene.resume();
         this.scene.start('Over');
@@ -262,16 +255,5 @@ export default class GameScene extends Phaser.Scene {
     this.nextPlatformDistance = Phaser.Math.Between(
       this.gameOptions.spawnRange[0], this.gameOptions.spawnRange[1],
     );
-  }
-
-  startMusic() {
-    if (this.model.musicOn === true) {
-      if (this.model.bgMusicPlaying === true) {
-        this.sys.game.globals.bgMusic.stop();
-      }
-      this.bgMusic = this.sound.add('playGameMusic', { volume: 0.5, loop: true });
-      this.bgMusic.play();
-      this.sys.game.globals.bgMusic = this.bgMusic;
-    }
   }
 }

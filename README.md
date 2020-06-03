@@ -4,7 +4,7 @@
 
 # Project: Platform game
 
-This is part of Javascript capstone project
+This is part of Javascript course, building a game using Phaser
 
 ## Built With
 - Javascript(ES6)

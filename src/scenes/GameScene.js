@@ -158,7 +158,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   addFallingObject() {
-    console.log('imIn');
     let x = Phaser.Math.Between(20, 780);
     let falling = this.physics.add.sprite(x, -50, 'rock').setDisplaySize(30, 40);
     falling.setImmovable(true);

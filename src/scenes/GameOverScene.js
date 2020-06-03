@@ -21,11 +21,9 @@ export default class GameOverScene extends Phaser.Scene {
     this.zone = this.add.zone(width/2, height/2, width, height);
     this.homeButton = new Button(this, 150, 500, 'blueButton1', 'blueButton2', 'Home', 'Title');
     this.restartButton = new Button(this, 650, 500, 'blueButton1', 'blueButton2', 'Restart', 'Game');
-    console.log(localStorage.getItem('scoreSaved'));
     if (score.split(':')[1] > 0 && localStorage.getItem('scoreSaved') === 'false') {
       const response = this.scoreBoard.newScore();
       response.then(data => {
-        console.log(data);
         this.getScoreBoardData();
       })
     } else {
@@ -64,8 +62,6 @@ export default class GameOverScene extends Phaser.Scene {
   }
 
   createList(data) {
-    console.log(data);
-
     let listTable = document.createElement('table');
     listTable.style.color = '#000 ';
     listTable.style.maxHeight = '300px';
@@ -96,7 +92,6 @@ export default class GameOverScene extends Phaser.Scene {
       tempTr.appendChild(secondTd);
       listTable.appendChild(tempTr);
     }
-    console.log(listTable);
     return listTable;
   }
 };

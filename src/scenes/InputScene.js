@@ -22,8 +22,8 @@ export default class InputScene extends Phaser.Scene {
         var userName = this.getChildByName('Name');
         if (userName.value !== '') {
           model.userName = userName.value;
-          this.scene.form.destroy();
           this.scene.scene.start('Title');
+          this.scene.form.destroy();
         } else {
           
         }

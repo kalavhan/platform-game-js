@@ -6,7 +6,7 @@ export default class Model {
   }
 
   async newScore() {
-    if(localStorage.getItem('scoreSaved') === 'false'){
+    if (localStorage.getItem('scoreSaved') === 'false') {
       localStorage.setItem('scoreSaved', true);
       const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/fgcvn8tPdeIv7gxPID3P/scores/';
       const data = {
@@ -21,8 +21,9 @@ export default class Model {
           'Content-Type': 'application/json',
         },
       });
-      return response.json()
+      return response.json();
     }
+    return false;
   }
 
   async getScores() {
@@ -32,4 +33,4 @@ export default class Model {
     });
     return response.json();
   }
-};
+}

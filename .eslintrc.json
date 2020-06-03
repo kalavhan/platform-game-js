@@ -17,6 +17,8 @@
       "import/no-unresolved": "off",
       "no-undef": 0,
       "new-cap": 0,
-      "class-methods-use-this": 0
+      "class-methods-use-this": 0,
+      "func-names": 0,
+      "prefer-arrow-callback": 0      
     }
   }

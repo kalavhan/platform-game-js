@@ -15,11 +15,11 @@ import InputScene from './scenes/InputScene';
 
 document.getElementById('arrowsImg').src = arrows;
 class Game extends Phaser.Game {
-  constructor (){
+  constructor() {
     super(config);
     const model = new Model();
     const sB = new scoreBoard();
-    this.globals = { model, bgMusic: null, sB};
+    this.globals = { model, bgMusic: null, sB };
     this.scene.add('Boot', BootScene);
     this.scene.add('Preloader', PreloaderScene);
     this.scene.add('Input', InputScene);

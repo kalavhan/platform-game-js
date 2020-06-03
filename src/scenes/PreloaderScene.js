@@ -97,9 +97,6 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('checkedBox', checkedBox);
     this.load.image('rock', rock)
     this.load.audio('menuMusic', [menuMusic]);
-    this.load.audio('hitSound', [hitSound]);
-    this.load.audio('powerUpSound', [powerUpSound]);
-    this.load.audio('powerDownSound', [powerDownSound]);
     this.load.image('jungleG', jungleG);
     this.load.image('jungleF', jungleF);
     this.load.image('jungleE', jungleE);
@@ -113,6 +110,7 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 46,
       frameHeight: 50
     });
+    this.load.audio('playGameMusic', [playGameMusic]);
   }
  
   create () {

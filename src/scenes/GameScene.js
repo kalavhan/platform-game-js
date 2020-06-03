@@ -63,6 +63,7 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.player, this.waterGroup, function () {
       this.scene.pause();
       this.player.setTint(0xff142c);
+      this.model.score = this.timePlayed;
       setTimeout(() => {
         this.scene.resume();
         this.scene.start('Over');
@@ -72,6 +73,7 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.player, this.fallingGroup, function () {
       this.scene.pause();
       this.player.setTint(0xff142c);
+      this.model.score = this.timePlayed;
       setTimeout(() => {
         this.scene.resume();
         this.scene.start('Over');

@@ -254,7 +254,7 @@ export default class GameScene extends Phaser.Scene {
       platform.setImmovable(true);
       platform.setVelocityX(Phaser.Math.Between(
         this.gameOptions.platformSpeedRange[0], this.gameOptions.platformSpeedRange[1],
-        ) * -1
+      ) * -1,
       );
       this.platformGroup.add(platform);
     }

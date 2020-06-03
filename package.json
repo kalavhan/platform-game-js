@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/kalavhan/platform-game-js#readme",
   "dependencies": {
+    "eslint": "^7.1.0",
     "phaser": "^3.23.0",
     "regenerator-runtime": "^0.13.5",
     "style-loader": "^1.2.1"

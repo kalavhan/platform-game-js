@@ -69,7 +69,7 @@ export default class GameScene extends Phaser.Scene {
       this.bgMusic.stop();
       setTimeout(() => {
         this.scene.resume();
-        this.scene.start('Title');
+        this.scene.start('Over');
       }, 1200);
     }, null, this);
 
@@ -81,7 +81,7 @@ export default class GameScene extends Phaser.Scene {
       this.bgMusic.stop();
       setTimeout(() => {
         this.scene.resume();
-        this.scene.start('Title');
+        this.scene.start('Over');
       }, 1200);
     }, null, this);
   }
@@ -91,7 +91,7 @@ export default class GameScene extends Phaser.Scene {
     let direction = 'right';
 
     if (cursorKey.right.isDown) {
-      this.player.flipX = direction === 'right';
+      this.player.flipX = direction === 'left';
       if (this.player.body.touching.down) {
         this.player.anims.play('run', true);
         this.player.setVelocityX(400);
@@ -101,7 +101,7 @@ export default class GameScene extends Phaser.Scene {
       }
       direction = 'right';
     } else if (cursorKey.left.isDown) {
-      this.player.flipX = direction === 'left';
+      this.player.flipX = direction === 'right';
       this.player.setVelocityX(-400);
       if (this.player.body.touching.down) {
         this.player.anims.play('run', true);

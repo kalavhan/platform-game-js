@@ -128,24 +128,24 @@ export default class GameScene extends Phaser.Scene {
         minDistance = platformDistance;
         rightmostPlatformHeight = platform.y;
       }
-      if (platform.x <- platform.displayWidth / 2) {
+      if (platform.x < -platform.displayWidth / 2) {
         this.platformGroup.killAndHide(platform);
         this.platformGroup.remove(platform);
       }
     }, this);
     if (minDistance > this.nextPlatformDistance) {
       const nextPlatformWidth = Phaser.Math.Between(
-        this.gameOptions.platformSizeRange[0], this.gameOptions.platformSizeRange[1]
-        );
+        this.gameOptions.platformSizeRange[0], this.gameOptions.platformSizeRange[1],
+      );
       const platformRandomHeight = this.gameOptions.platformHeighScale * Phaser.Math.Between(
-        this.gameOptions.platformHeightRange[0], this.gameOptions.platformHeightRange[1]
-        );
+        this.gameOptions.platformHeightRange[0], this.gameOptions.platformHeightRange[1],
+      );
       const nextPlatformGap = rightmostPlatformHeight + platformRandomHeight;
       const minPlatformHeight = 600 * this.gameOptions.platformVerticalLimit[0];
       const maxPlatformHeight = 600 * this.gameOptions.platformVerticalLimit[1];
       const nextPlatformHeight = Phaser.Math.Clamp(
-        nextPlatformGap, minPlatformHeight, maxPlatformHeight
-        );
+        nextPlatformGap, minPlatformHeight, maxPlatformHeight,
+      );
       this.addPlatform(nextPlatformWidth, 800 + nextPlatformWidth / 2, nextPlatformHeight);
     }
     this.fallingGroup.getChildren().forEach(function (falling) {
@@ -165,31 +165,31 @@ export default class GameScene extends Phaser.Scene {
 
   addFallingObject() {
     const x = Phaser.Math.Between(20, 780);
-    let falling = this.physics.add.sprite(x, -50, 'rock').setDisplaySize(30, 40);
+    const falling = this.physics.add.sprite(x, -50, 'rock').setDisplaySize(30, 40);
     falling.setImmovable(true);
     falling.setVelocityY(Phaser.Math.Between(100, 200));
     this.fallingGroup.add(falling);
   }
 
   chronometer() {
-    if(this.mls > 59) {
+    if (this.mls > 59) {
       this.seconds += 1;
       this.mls = 0;
       this.addFallingObject();
-      if(this.seconds > 59){
+      if (this.seconds > 59) {
         this.minutes += 1;
       }
     } else {
       this.mls += 1;
     }
-    let dm = this.minutes < 10 ? `0${this.minutes}` : this.minutes;
-    let ds = this.seconds < 10 ? `0${this.seconds}` : this.seconds;
-    this.timeText.setText(`${dm}:${ds}`)
+    const dm = this.minutes < 10 ? `0${this.minutes}` : this.minutes;
+    const ds = this.seconds < 10 ? `0${this.seconds}` : this.seconds;
+    this.timeText.setText(`${dm}:${ds}`);
     this.timePlayed = `${dm}:${ds}`;
   }
 
   addSprite(x, y, asset, depth = 1) {
-    var spriteAdded = this.physics.add.sprite(x, y, `${asset}`);
+    const spriteAdded = this.physics.add.sprite(x, y, `${asset}`);
     spriteAdded.depth = depth;
     return spriteAdded;
   }
@@ -207,39 +207,38 @@ export default class GameScene extends Phaser.Scene {
   setWater() {
     let i = 0;
     let pos = 64;
-    let waterArray = [];
+    const waterArray = [];
     this.waterGroup = this.add.group();
-    do{
-      let water = this.addSprite(pos, 586, 'water', 3).setInteractive();
+    do {
+      const water = this.addSprite(pos, 586, 'water', 3).setInteractive();
       water.setSize(128, 30, true);
       waterArray.push(water);
       this.waterGroup.add(water);
       i += 1;
-      pos += 128
-    } while(i != 8)
+      pos += 128;
+    } while (i !== 8);
     this.tweens.add({
       targets: waterArray,
       x: '-=128',
       duration: 4500,
       ease: 'Power5',
-      repeat: -1
+      repeat: -1,
     });
   }
 
   setPlatforms() {
     this.platformGroup = this.add.group({
       // once a platform is removed, it's added to the pool
-      removeCallback: function(platform){
-          platform.scene.platformPool.add(platform)
-      }
+      removeCallback: function (platform) {
+        platform.scene.platformPool.add(platform);
+      },
     });
     this.platformPool = this.add.group({
-      removeCallback: function(platform){
-          platform.scene.platformGroup.add(platform)
-      }
+      removeCallback: function (platform) {
+        platform.scene.platformGroup.add(platform);
+      },
     });
     this.addPlatform(800, 800 / 2, 600 * this.gameOptions.platformVerticalLimit[1]);
-    
   }
 
   addPlatform(platformWidth, posX, posY){

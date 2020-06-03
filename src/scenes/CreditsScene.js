@@ -17,7 +17,7 @@ export default class CreditsScene extends Phaser.Scene {
     this.playerBy = this.add.text(0, 0, 'Player sprite By: Balmer@opengameart.org', { fontSize: '26px', fill: '#fff' });
     this.musicBy = this.add.text(0, 0, 'Music and Sound effects By: Bogart@opengameart.org', { fontSize: '26px', fill: '#fff' });
     this.zone = this.add.zone(width / 2, height / 2, width, height);
-   
+
     Phaser.Display.Align.In.Center(
       this.creditsText,
       this.zone,

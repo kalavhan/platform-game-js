@@ -1,7 +1,7 @@
 import 'phaser';
 
 export default class GameScene extends Phaser.Scene {
-  constructor () {
+  constructor() {
     super('Game');
     this.gameOptions = {
       platformSpeedRange: [300, 400],
@@ -12,14 +12,14 @@ export default class GameScene extends Phaser.Scene {
       platformVerticalLimit: [0.75, 0.8],
       playerGravity: 900,
       jumpForce: 400,
-      playerStartPosition: 200
-    }
+      playerStartPosition: 200,
+    };
   }
- 
-  preload () {
+
+  preload() {
   }
- 
-  create () {
+
+  create() {
     localStorage.setItem('scoreSaved', false);
     this.model = this.sys.game.globals.model;
     this.startMusic();
@@ -31,37 +31,37 @@ export default class GameScene extends Phaser.Scene {
     this.seconds = 0;
     this.mls = 0;
     this.timePlayed = '';
-    this.timeText = this.add.text(15, 15, null,{fontSize: '32px', fill: '#000'});
+    this.timeText = this.add.text(15, 15, null, { fontSize: '32px', fill: '#000' });
     this.jumpCount = 0;
     this.player = this.physics.add.sprite(this.gameOptions.playerStartPosition, 600 * 0.6, 'dude').setDisplaySize(60, 90);
     this.player.setSize(20, 41, true);
     this.input.enableDebug(this.player, 0xff00ff);
     this.player.setGravityY(900);
     this.anims.create({
-        key: 'idle',
-        frames: [ { key: 'dude', frame: 0 } ],
-        frameRate: 10,
+      key: 'idle',
+      frames: [{ key: 'dude', frame: 0 }],
+      frameRate: 10,
     });
-    
+
     this.anims.create({
-        key: 'run',
-        frames: this.anims.generateFrameNumbers('dude', { start: 24, end: 35 }),
-        frameRate: 20,
-        repeat: -1
+      key: 'run',
+      frames: this.anims.generateFrameNumbers('dude', { start: 24, end: 35 }),
+      frameRate: 20,
+      repeat: -1
     });
 
     this.anims.create({
       key: 'jump',
-      frames: [ { key: 'dude', frame: 6}],
+      frames: [{ key: 'dude', frame: 6 }],
       frameRate: 10,
       repeat: false,
-      
-    })
+    });
+
     this.player.setCollideWorldBounds(true);
     // setting collisions between the player and the platform group
     this.physics.add.collider(this.player, this.platformGroup, null, null, this);
 
-    this.physics.add.collider(this.player, this.waterGroup, function() {
+    this.physics.add.collider(this.player, this.waterGroup, function () {
       this.scene.pause();
       this.player.setTint(0xff142c);
       this.model.bgMusicPlaying = false;
@@ -73,7 +73,7 @@ export default class GameScene extends Phaser.Scene {
       }, 1200);
     }, null, this);
 
-    this.physics.add.collider(this.player, this.fallingGroup, function() {
+    this.physics.add.collider(this.player, this.fallingGroup, function () {
       this.scene.pause();
       this.player.setTint(0xff142c);
       this.model.bgMusicPlaying = false;
@@ -84,14 +84,14 @@ export default class GameScene extends Phaser.Scene {
         this.scene.start('Title');
       }, 1200);
     }, null, this);
-  } 
+  }
 
   update() {
     const cursorKey = this.input.keyboard.createCursorKeys();
     let direction = 'right';
-    let dash = true;
+
     if (cursorKey.right.isDown) {
-      this.player.flipX = direction === 'right' ? false : true;
+      this.player.flipX = direction === 'right';
       if (this.player.body.touching.down) {
         this.player.anims.play('run', true);
         this.player.setVelocityX(400);
@@ -101,7 +101,7 @@ export default class GameScene extends Phaser.Scene {
       }
       direction = 'right';
     } else if (cursorKey.left.isDown) {
-      this.player.flipX = direction === 'left' ? false : true;
+      this.player.flipX = direction === 'left';
       this.player.setVelocityX(-400);
       if (this.player.body.touching.down) {
         this.player.anims.play('run', true);
@@ -118,28 +118,30 @@ export default class GameScene extends Phaser.Scene {
       this.player.anims.play('idle', true);
     }
     if (cursorKey.up.isDown && this.player.body.touching.down) {
-        this.player.setVelocityY(-430);
+      this.player.setVelocityY(-430);
     }
     let minDistance = 800;
     let rightmostPlatformHeight = 0;
-    this.platformGroup.getChildren().forEach(function(platform){
-      let platformDistance = 800 - platform.x - platform.displayWidth / 2;
-        if(platformDistance < minDistance){
-          minDistance = platformDistance;
-          rightmostPlatformHeight = platform.y;
-        }
-        if(platform.x < - platform.displayWidth / 2){
-          this.platformGroup.killAndHide(platform);
-          this.platformGroup.remove(platform);
-        }
+    this.platformGroup.getChildren().forEach(function (platform) {
+      const platformDistance = 800 - platform.x - platform.displayWidth / 2;
+      if (platformDistance < minDistance) {
+        minDistance = platformDistance;
+        rightmostPlatformHeight = platform.y;
+      }
+      if(platform.x < - platform.displayWidth / 2){
+        this.platformGroup.killAndHide(platform);
+        this.platformGroup.remove(platform);
+      }
     }, this);
-    if(minDistance > this.nextPlatformDistance){
-      let nextPlatformWidth = Phaser.Math.Between(this.gameOptions.platformSizeRange[0], this.gameOptions.platformSizeRange[1]);
-      let platformRandomHeight = this.gameOptions.platformHeighScale * Phaser.Math.Between(this.gameOptions.platformHeightRange[0], this.gameOptions.platformHeightRange[1]);
-      let nextPlatformGap = rightmostPlatformHeight + platformRandomHeight;
-      let minPlatformHeight = 600 * this.gameOptions.platformVerticalLimit[0];
+    if (minDistance > this.nextPlatformDistance) {
+      const nextPlatformWidth = Phaser.Math.Between(this.gameOptions.platformSizeRange[0], this.gameOptions.platformSizeRange[1]);
+      const platformRandomHeight = this.gameOptions.platformHeighScale * Phaser.Math.Between(
+        this.gameOptions.platformHeightRange[0], this.gameOptions.platformHeightRange[1]);
+      const nextPlatformGap = rightmostPlatformHeight + platformRandomHeight;
+      const minPlatformHeight = 600 * this.gameOptions.platformVerticalLimit[0];
       let maxPlatformHeight = 600 * this.gameOptions.platformVerticalLimit[1];
-      let nextPlatformHeight = Phaser.Math.Clamp(nextPlatformGap, minPlatformHeight, maxPlatformHeight);
+      let nextPlatformHeight = Phaser.Math.Clamp(
+        nextPlatformGap, minPlatformHeight, maxPlatformHeight);
       this.addPlatform(nextPlatformWidth, 800 + nextPlatformWidth / 2, nextPlatformHeight);
     }
     this.fallingGroup.getChildren().forEach(function(falling){

@@ -10,7 +10,7 @@ export default class GameOverScene extends Phaser.Scene {
   preload() {
   }
 
-  create () {
+  create() {
     this.model = this.sys.game.globals.model;
     this.scoreBoard = this.sys.game.globals.sB;
     const score = this.model.score;

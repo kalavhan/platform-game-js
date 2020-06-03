@@ -18,20 +18,20 @@ import platformTile from '../assets/forest/jungle_pack_05.png';
 import dude from '../assets/player-design/player.png';
 
 export default class PreloaderScene extends Phaser.Scene {
-  constructor () {
+  constructor() {
     super('Preloader');
   }
- 
-  preload () {
+
+  preload() {
     // display progress bar
-    var progressBar = this.add.graphics();
-    var progressBox = this.add.graphics();
+    const progressBar = this.add.graphics();
+    const progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
     progressBox.fillRect(240, 270, 320, 50);
-  
-    var width = this.cameras.main.width;
-    var height = this.cameras.main.height;
-    var loadingText = this.make.text({
+
+    const width = this.cameras.main.width;
+    const height = this.cameras.main.height;
+    const loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 50,
       text: 'Loading...',
@@ -41,8 +41,8 @@ export default class PreloaderScene extends Phaser.Scene {
       }
     });
     loadingText.setOrigin(0.5, 0.5);
-  
-    var percentText = this.make.text({
+
+    const percentText = this.make.text({
       x: width / 2,
       y: height / 2 - 5,
       text: '0%',
@@ -52,8 +52,8 @@ export default class PreloaderScene extends Phaser.Scene {
       }
     });
     percentText.setOrigin(0.5, 0.5);
-  
-    var assetText = this.make.text({
+
+    const assetText = this.make.text({
       x: width / 2,
       y: height / 2 + 50,
       text: '',
@@ -63,7 +63,7 @@ export default class PreloaderScene extends Phaser.Scene {
       }
     });
     assetText.setOrigin(0.5, 0.5);
-  
+
     // update progress bar
     this.load.on('progress', function (value) {
       percentText.setText(parseInt(value * 100) + '%');
@@ -71,12 +71,12 @@ export default class PreloaderScene extends Phaser.Scene {
       progressBar.fillStyle(0xffffff, 1);
       progressBar.fillRect(250, 280, 300 * value, 30);
     });
-  
+
     // update file progress text
     this.load.on('fileprogress', function (file) {
       assetText.setText('Loading asset: ' + file.key);
     });
-  
+
     this.load.on('complete', function () {
       progressBar.destroy();
       progressBox.destroy();
@@ -85,9 +85,9 @@ export default class PreloaderScene extends Phaser.Scene {
       assetText.destroy();
       this.ready();
     }.bind(this));
-     
+
     this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
-    
+
     this.load.image('blueButton1', buttonTwo);
     this.load.image('blueButton2', buttonThree);
     this.load.image('box', box);
@@ -109,19 +109,19 @@ export default class PreloaderScene extends Phaser.Scene {
     });
     this.load.audio('playGameMusic', [playGameMusic]);
   }
- 
-  create () {
+
+  create() {
   }
 
-  init () {
+  init() {
     this.readyCount = 0;
   }
-   
-  ready () {	
+
+  ready() {	
     this.scene.start('Input');
     this.readyCount++;
     if (this.readyCount === 2) {
       this.scene.start('Input');
     }
   }
-};
+}

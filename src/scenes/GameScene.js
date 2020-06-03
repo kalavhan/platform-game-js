@@ -254,14 +254,13 @@ export default class GameScene extends Phaser.Scene {
       platform.setImmovable(true);
       platform.setVelocityX(Phaser.Math.Between(
         this.gameOptions.platformSpeedRange[0], this.gameOptions.platformSpeedRange[1],
-      ) * -1,
-      );
+      ) * -1,);
       this.platformGroup.add(platform);
     }
     platform.displayHeight = 30;
     platform.displayWidth = platformWidth;
     this.nextPlatformDistance = Phaser.Math.Between(
-      this.gameOptions.spawnRange[0], this.gameOptions.spawnRange[1]
+      this.gameOptions.spawnRange[0], this.gameOptions.spawnRange[1],
     );
   }
 

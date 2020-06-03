@@ -1,52 +1,52 @@
 export default class Model {
   constructor() {
-    this._soundOn = true;
-    this._musicOn = true;
-    this._bgMusicPlaying = false;
-    this._score = '00:00';
-    this._userName = 'no name';
-    localStorage.setItem("userName", 'no name');
+    this.sound = true;
+    this.music = true;
+    this.bgMusicPl = false;
+    this.sc = '00:00';
+    this.userNa = 'no name';
+    localStorage.setItem('userName', 'no name');
   }
- 
+
   set musicOn(value) {
-    this._musicOn = value;
+    this.music = value;
   }
- 
+
   get musicOn() {
-    return this._musicOn;
+    return this.music;
   }
- 
+
   set soundOn(value) {
-    this._soundOn = value;
+    this.sound = value;
   }
- 
+
   get soundOn() {
-    return this._soundOn;
+    return this.sound;
   }
- 
+
   set bgMusicPlaying(value) {
-    this._bgMusicPlaying = value;
+    this.bgMusicPl = value;
   }
- 
+
   get bgMusicPlaying() {
-    return this._bgMusicPlaying;
+    return this.bgMusicPl;
   }
 
   set score(value) {
-    this._score = value;
-    localStorage.setItem("score", value);
+    this.sc = value;
+    localStorage.setItem('score', value);
   }
 
   get score() {
-    return this._score;
+    return this.sc;
   }
-  
+
   set userName(value) {
-    this._userName = value;
-    localStorage.setItem("userName", value);
+    this.userNa = value;
+    localStorage.setItem('userName', value);
   }
 
   get userName() {
-    return this._userName;
+    return this.userNa;
   }
-};
+}

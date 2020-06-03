@@ -15,14 +15,14 @@ export default class InputScene extends Phaser.Scene {
     const width = this.cameras.main.width;
     const height = this.cameras.main.height;
     this.zone = this.add.zone(width/2, height/2, width, height);
-    this.form = this.add.dom(400, 300).createFromHTML(nameForm, 'div');
-    this.form.addListener('click');
-    this.form.on('click', function (event) {
+    const form = this.add.dom(400, 300).createFromHTML(nameForm, 'div');
+    form.addListener('click');
+    form.on('click', function (event) {
       if (event.target.name === 'setNameButton') {
         var userName = this.getChildByName('Name');
         if (userName.value !== '') {
           model.userName = userName.value;
-          this.form.destroy();
+          form.destroy();
           this.scene.scene.start('Title');
         } else {
           

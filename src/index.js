@@ -1,5 +1,5 @@
 import 'phaser';
-import css from './css/main.css';
+import './css/main.css';
 import arrows from './assets/arrows.png';
 import config from './modules/PhaserConfig';
 import GameScene from './scenes/GameScene';

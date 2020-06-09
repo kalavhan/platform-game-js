@@ -28,12 +28,6 @@ export default class GameOverScene extends Phaser.Scene {
         this.getScoreBoardData();
       });
     } else {
-      this.notEnough = this.add.text(0, 0, 'Survive at least a second to add a record', { fontSize: '28px', fill: '#fff' });
-      Phaser.Display.Align.In.Center(
-        this.notEnough,
-        this.zone,
-      );
-      this.notEnough.setY(175);
       this.getScoreBoardData();
     }
     Phaser.Display.Align.In.Center(
@@ -76,13 +70,16 @@ export default class GameOverScene extends Phaser.Scene {
     const listTable = document.createElement('table');
     listTable.style.color = '#000 ';
     listTable.style.maxHeight = '300px';
+    listTable.style.width = '240px';
     listTable.style.overflowX = 'scroll';
     listTable.style.borderCollapse = 'collapse';
     listTable.style.background = '#fff';
     const firstTr = document.createElement('tr');
     const nameTitle = document.createElement('th');
-    nameTitle.style.paddingRight = '40px';
+    nameTitle.style.paddingRight = '10px';
+    nameTitle.style.width = '50%';
     const scoreTitle = document.createElement('th');
+    scoreTitle.style.width = '50%';
     nameTitle.innerHTML = 'Name';
     scoreTitle.innerHTML = 'Score';
     firstTr.appendChild(nameTitle);
@@ -94,9 +91,12 @@ export default class GameOverScene extends Phaser.Scene {
         tempTr.style.background = '#dddddd';
       }
       const firstTd = document.createElement('td');
-      firstTd.style.paddingRight = '40px';
+      firstTd.style.paddingRight = '10px';
       firstTd.style.textAlign = 'center';
+      firstTd.style.width = '50%';
       const secondTd = document.createElement('td');
+      secondTd.style.width = '50%';
+      secondTd.style.textAlign = 'center';
       firstTd.innerHTML = data[i].user;
       secondTd.innerHTML = data[i].score;
       tempTr.appendChild(firstTd);

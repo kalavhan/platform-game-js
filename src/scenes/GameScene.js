@@ -91,8 +91,8 @@ export default class GameScene extends Phaser.Scene {
     this.scene.pause();
     this.scene.launch('Pause');
     this.events.on('resume', function () {
-      pressText.destroy()
-    })
+      pressText.destroy();
+    });
   }
 
   update() {

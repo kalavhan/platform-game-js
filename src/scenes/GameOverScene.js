@@ -66,7 +66,7 @@ export default class GameOverScene extends Phaser.Scene {
           comparison = 1;
         }
         return comparison;
-      })
+      });
       const tempTable = this.createList(scores);
       this.form = this.add.dom(400, 400, tempTable);
     });

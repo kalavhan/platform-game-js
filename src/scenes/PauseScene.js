@@ -14,7 +14,6 @@ export default class PauseScene extends Phaser.Scene {
   update() {
     const cursorKey = this.input.keyboard.createCursorKeys();
     if (cursorKey.right.isDown || cursorKey.left.isDown || cursorKey.up.isDown) {
-      console.log("aver");
       this.scene.resume('Game');
       this.scene.stop();
     }

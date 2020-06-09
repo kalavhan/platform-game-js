@@ -111,6 +111,10 @@ export default class GameScene extends Phaser.Scene {
     this.events.on('resume', function () {
       pressText.destroy();
     });
+    if (this.model.leaderboard !== false) {
+      this.model.leaderboard.remove();
+      this.model.leaderboard = false;
+    } 
   }
 
   update() {

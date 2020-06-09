@@ -5,6 +5,7 @@ export default class Model {
     this.bgMusicPl = false;
     this.sc = '00:00';
     this.userNa = 'no name';
+    this.leader = false;
     localStorage.setItem('userName', 'no name');
   }
 
@@ -48,5 +49,13 @@ export default class Model {
 
   get userName() {
     return this.userNa;
+  }
+
+  set leaderboard(value) {
+    this.leader = value;
+  }
+
+  get leaderboard() {
+    return this.leader;
   }
 }

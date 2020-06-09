@@ -68,6 +68,7 @@ export default class GameOverScene extends Phaser.Scene {
 
   createList(data) {
     const listTable = document.createElement('table');
+    listTable.id = 'leaderboad';
     listTable.style.color = '#000 ';
     listTable.style.maxHeight = '300px';
     listTable.style.width = '240px';
@@ -103,6 +104,7 @@ export default class GameOverScene extends Phaser.Scene {
       tempTr.appendChild(secondTd);
       listTable.appendChild(tempTr);
     }
+    this.model.leaderboard = listTable;
     return listTable;
   }
 }

@@ -12,6 +12,7 @@ import GameOverScene from './scenes/GameOverScene';
 import Model from './scenes/Model';
 import scoreBoard from './modules/ScoreBoard';
 import InputScene from './scenes/InputScene';
+import PauseScene from './scenes/PauseScene';
 
 document.getElementById('arrowsImg').src = arrows;
 class Game extends Phaser.Game {
@@ -27,6 +28,7 @@ class Game extends Phaser.Game {
     this.scene.add('Options', OptionsScene);
     this.scene.add('Credits', CreditsScene);
     this.scene.add('Over', GameOverScene);
+    this.scene.add('Pause', PauseScene);
     this.scene.add('Game', GameScene);
     this.scene.start('Preloader');
   }

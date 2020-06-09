@@ -79,12 +79,25 @@ export default class GameScene extends Phaser.Scene {
         this.scene.start('Over');
       }, 1200);
     }, null, this);
+    const width = this.cameras.main.width;
+    const height = this.cameras.main.height;
+    this.zone = this.add.zone(width / 2, height / 2, width, height);
+    const pressText = this.add.text(0, 0, 'Press "move left" or "move right" to start the game', { fontSize: '28px', fill: '#f00' });
+    Phaser.Display.Align.In.Center(
+      pressText,
+      this.zone,
+    );
+    pressText.setY(90);
+    this.scene.pause();
+    this.scene.launch('Pause');
+    this.events.on('resume', function () {
+      pressText.destroy()
+    })
   }
 
   update() {
     const cursorKey = this.input.keyboard.createCursorKeys();
     let direction = 'right';
-
     if (cursorKey.right.isDown) {
       this.player.flipX = direction === 'left';
       if (this.player.body.touching.down) {

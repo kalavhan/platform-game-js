@@ -57,7 +57,17 @@ export default class GameOverScene extends Phaser.Scene {
   getScoreBoardData() {
     const sb = this.scoreBoard.getScores();
     sb.then(data => {
-      const tempTable = this.createList(data.result);
+      const scores = data.result;
+      scores.sort((a, b) => {
+        let comparison = 0;
+        if (a.score > b.score) {
+          comparison = -1;
+        } else if (a.score < b.score) {
+          comparison = 1;
+        }
+        return comparison;
+      })
+      const tempTable = this.createList(scores);
       this.form = this.add.dom(400, 400, tempTable);
     });
   }

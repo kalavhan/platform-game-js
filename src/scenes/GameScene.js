@@ -1,4 +1,13 @@
 import 'phaser';
+import jungleG from '../assets/forest/bg_jungle_layers/bg5_g.png';
+import jungleF from '../assets/forest/bg_jungle_layers/bg5_f.png';
+import jungleE from '../assets/forest/bg_jungle_layers/bg5_e.png';
+import jungleD from '../assets/forest/bg_jungle_layers/bg5_d.png';
+import jungleC from '../assets/forest/bg_jungle_layers/bg5_c.png';
+import jungleB from '../assets/forest/bg_jungle_layers/bg5_b.png';
+import jungleA from '../assets/forest/bg_jungle_layers/bg5_a.png';
+import water from '../assets/forest/water.png';
+import platformTile from '../assets/forest/jungle_pack_05.png';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -17,6 +26,15 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
+    this.load.image('jungleG', jungleG);
+    this.load.image('jungleF', jungleF);
+    this.load.image('jungleE', jungleE);
+    this.load.image('jungleD', jungleD);
+    this.load.image('jungleC', jungleC);
+    this.load.image('jungleB', jungleB);
+    this.load.image('jungleA', jungleA);
+    this.load.image('water', water);
+    this.load.image('platform', platformTile);
   }
 
   create() {

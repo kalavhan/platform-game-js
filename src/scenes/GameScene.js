@@ -114,7 +114,7 @@ export default class GameScene extends Phaser.Scene {
     if (this.model.leaderboard !== false) {
       this.model.leaderboard.remove();
       this.model.leaderboard = false;
-    } 
+    }
   }
 
   update() {
